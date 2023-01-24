@@ -120,7 +120,6 @@ public function __construct(AnotherExampleLibrary $anotherExampleLibrary)
     // this use case is very help full for implement the repository pattern
     $this->anotherExampleLibrary = $anotherExampleLibrary;
 }
-
 ```
 
 Remember one thing! Doing container like this is not officially supported by CodeIgniter 4,
