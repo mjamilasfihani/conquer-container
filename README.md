@@ -1,6 +1,8 @@
 # CodeIgniter 4 Container
 Containerized Dependency Injection for CodeIgniter 4 Controller.
 
+Warning! This library crack the core point of CodeIgniter 4, consider to use at your own risk!
+
 [![](https://github.com/mjamilasfihani/conquer-container/workflows/PHPUnit/badge.svg)](https://github.com/mjamilasfihani/conquer-container/actions/workflows/phpunit.yml)
 [![](https://github.com/mjamilasfihani/conquer-container/workflows/PHPStan/badge.svg)](https://github.com/mjamilasfihani/conquer-container/actions/workflows/phpstan.yml)
 [![](https://github.com/mjamilasfihani/conquer-container/workflows/Deptrac/badge.svg)](https://github.com/mjamilasfihani/conquer-container/actions/workflows/deptrac.yml)
