@@ -22,7 +22,7 @@ class CodeIgniter extends BaseCodeIgniter
     {
         assert(is_string($this->controller));
 
-        $container = Container::withController($this->controller)->initialize();
+        $container = Container::withClass($this->controller)->initialize();
 
         $class = $container->build();
 

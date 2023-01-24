@@ -35,7 +35,7 @@ trait ControllerTestTrait
             throw new InvalidArgumentException('Invalid Controller: ' . $name);
         }
 
-        $container = Container::withController($name)->initialize();
+        $container = Container::withClass($name)->initialize();
 
         $this->controller = $container->build();
 

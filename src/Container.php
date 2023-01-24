@@ -15,12 +15,12 @@ final class Container
 
     private string $class;
 
-    private function __construct(string $controller)
+    private function __construct(string $class)
     {
-        $this->class = $controller;
+        $this->class = $class;
     }
 
-    public static function withController(string $name): self
+    public static function withClass(string $name): self
     {
         return new self($name);
     }
@@ -38,9 +38,11 @@ final class Container
 
     public function build(): Controller
     {
+        $class = $this->getClass();
+
         $constructor = $this->getReflectionConstructor();
 
-        return ($constructor !== null) ? new $this->class(...self::getInjectedClass($constructor, false)) : new $this->class();
+        return ($constructor !== null) ? new $class(...self::getInjectedClass($constructor, false)) : new $class();
     }
 
     private static function getInjectedClass(ReflectionMethod $constructor, bool $calling_itself = false): array
@@ -49,13 +51,13 @@ final class Container
 
         foreach ($constructor->getParameters() as $key => $param) {
             // initialize the injected class name
-            $container = self::getInjectedClassName($param);
+            $class = self::getInjectedClassName($param);
 
             // re-define the constructor to support child injection
-            $constructor = ($calling_itself === false) ? self::withController($container)->initialize()->getReflectionConstructor() : null;
+            $constructor = ($calling_itself === false) ? self::withClass($class)->initialize()->getReflectionConstructor() : null;
 
             // building up the library
-            $injector[$key] = (null !== $constructor) ? new $container(...self::getInjectedClass($constructor, true)) : new $container();
+            $injector[$key] = (null !== $constructor) ? new $class(...self::getInjectedClass($constructor, true)) : new $class();
         }
 
         return $injector;
@@ -64,5 +66,10 @@ final class Container
     private static function getInjectedClassName(ReflectionParameter $reflectionParameter): string
     {
         return $reflectionParameter->getType()->getName(); // @phpstan-ignore-line
+    }
+
+    private function getClass(): string
+    {
+        return $this->class;
     }
 }
