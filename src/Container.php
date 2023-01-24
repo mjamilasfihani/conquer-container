@@ -13,11 +13,11 @@ final class Container
     use WithReflectionClass;
     use WithReflectionConstructor;
 
-    private string $controller;
+    private string $class;
 
-    private function __construct(string $controller)
+    private function __construct(string $classname)
     {
-        $this->controller = $controller;
+        $this->class = $classname;
     }
 
     public static function withController(string $name): self
@@ -27,7 +27,7 @@ final class Container
 
     public function initialize()
     {
-        $this->setReflectionClass($this->controller);
+        $this->setReflectionClass($this->class);
 
         $reflectionClass = $this->getReflectionClass();
 
@@ -40,16 +40,28 @@ final class Container
     {
         $constructor = $this->getReflectionConstructor();
 
-        return ($constructor !== null) ? new $this->controller(...$this->getInjectedClass($constructor)) : new $this->controller();
+        return ($constructor !== null) ? new $this->class(...$this->getInjectedClass($constructor)) : new $this->class();
     }
 
     private function getInjectedClass(ReflectionMethod $constructor): array
     {
-        $injector = [];
+        $injector       = [];
+        $child_injector = [];
 
         foreach ($constructor->getParameters() as $key => $param) {
             $injected_class = $this->getInjectedClassName($param);
-            $injector[$key] = new $injected_class();
+
+            $child = self::withController($injected_class)->initialize()->getReflectionConstructor();
+
+            if (null !== $child) {
+                foreach ($child->getParameters() as $keyChild => $paramChild) {
+                    $child_injected_class = $this->getInjectedClassName($paramChild);
+
+                    $child_injector[$keyChild] = new $child_injected_class();
+                }
+            }
+
+            $injector[$key] = (null !== $child) ? new $injected_class(...$child_injector) : new $injected_class();
         }
 
         return $injector;
