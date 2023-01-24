@@ -7,7 +7,7 @@ Containerized Dependency Injection for CodeIgniter 4 Controller.
 [![Coverage Status](https://coveralls.io/repos/github/mjamilasfihani/codeigniter4-container/badge.svg?branch=develop)](https://coveralls.io/github/mjamilasfihani/codeigniter4-container?branch=develop)
 
 ## Prerequisites
-Usage of CodeIgniter4\Container requires the following:
+Usage of Conquer\Container requires the following:
 
 - A [CodeIgniter 4.2.0+](https://github.com/codeigniter4/CodeIgniter4/) based project
 - [Composer](https://getcomposer.org/) for package management
@@ -29,4 +29,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## License
-[None](https://choosealicense.com/no-permission/)
+[MIT](https://choosealicense.com/licenses/mit/)

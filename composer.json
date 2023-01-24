@@ -29,7 +29,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "CodeIgniter4\\Container\\": "src/"
+            "Conquer\\Container\\": "src/"
         },
         "exclude-from-classmap": [
             "**/Database/Migrations/**"
