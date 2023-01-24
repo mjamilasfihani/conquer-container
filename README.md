@@ -75,7 +75,6 @@ class Home extends BaseController
         return view('welcome_message');
     }
 }
-
 ```
 
 If your `ExampleLibrary.php` need another class too in the constructor, feel free to
@@ -110,6 +109,16 @@ class AnotherExampleLibrary
 
         ...
     }
+}
+```
+
+Now you can call it with no worries from your controller
+
+```php
+public function __construct(AnotherExampleLibrary $anotherExampleLibrary)
+{
+    // this use case is very help full for implement the repository pattern
+    $this->anotherExampleLibrary = $anotherExampleLibrary;
 }
 
 ```
