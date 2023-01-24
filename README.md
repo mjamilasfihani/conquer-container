@@ -23,7 +23,9 @@ composer require mjamilasfihani/conquer-container
 ```
 
 ## Usage
-Let's say you have `app/Libraries/ExampleLibrary.php` file, and you want to load in `__construct()` function in your controller without initializing it manually. Than this library is yours.
+Let's say you have `app/Libraries/ExampleLibrary.php` file, and you want to load in `__construct()` function
+
+in your controller without initializing it manually. Than this library is yours.
 
 Can I imagine your controller? Thank you :
 ```php
@@ -77,7 +79,11 @@ class Home extends BaseController
 
 ```
 
-Remember one thing! Doing container like this is not officially supported by CodeIgniter 4, since it has different structure do not judge me if you got an error for calling the CodeIgniter 4 library use this method. (Do It By Your Own Risk)
+Remember one thing! Doing container like this is not officially supported by CodeIgniter 4,
+
+since it has different structure do not judge me if you got an error for calling
+
+the CodeIgniter 4 library use this method. (Do It By Your Own Risk)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
