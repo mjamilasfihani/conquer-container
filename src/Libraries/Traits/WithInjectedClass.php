@@ -8,17 +8,11 @@ use ReflectionParameter;
 
 trait WithInjectedClass
 {
-    /**
-     * Set Injected Class
-     */
     protected function setInjectedClass(ReflectionParameter $reflectionParameter): string
     {
         return $reflectionParameter->getType()->getName(); // @phpstan-ignore-line
     }
 
-    /**
-     * Get Injected Class
-     */
     protected function getInjectedClass(ReflectionMethod $constructor, bool $calling_itself = false): array
     {
         $injector = [];
