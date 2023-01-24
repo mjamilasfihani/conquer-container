@@ -15,9 +15,9 @@ final class Container
 
     private string $class;
 
-    private function __construct(string $classname)
+    private function __construct(string $controller)
     {
-        $this->class = $classname;
+        $this->class = $controller;
     }
 
     public static function withController(string $name): self
@@ -40,34 +40,28 @@ final class Container
     {
         $constructor = $this->getReflectionConstructor();
 
-        return ($constructor !== null) ? new $this->class(...$this->getInjectedClass($constructor)) : new $this->class();
+        return ($constructor !== null) ? new $this->class(...self::getInjectedClass($constructor, false)) : new $this->class();
     }
 
-    private function getInjectedClass(ReflectionMethod $constructor): array
+    private static function getInjectedClass(ReflectionMethod $constructor, bool $calling_itself = false): array
     {
-        $injector       = [];
-        $child_injector = [];
+        $injector = [];
 
         foreach ($constructor->getParameters() as $key => $param) {
-            $injected_class = $this->getInjectedClassName($param);
+            // initialize the injected class name
+            $container = self::getInjectedClassName($param);
 
-            $child = self::withController($injected_class)->initialize()->getReflectionConstructor();
+            // re-define the constructor to support child injection
+            $constructor = ($calling_itself === false) ? self::withController($container)->initialize()->getReflectionConstructor() : null;
 
-            if (null !== $child) {
-                foreach ($child->getParameters() as $keyChild => $paramChild) {
-                    $child_injected_class = $this->getInjectedClassName($paramChild);
-
-                    $child_injector[$keyChild] = new $child_injected_class();
-                }
-            }
-
-            $injector[$key] = (null !== $child) ? new $injected_class(...$child_injector) : new $injected_class();
+            // building up the library
+            $injector[$key] = (null !== $constructor) ? new $container(...self::getInjectedClass($constructor, true)) : new $container();
         }
 
         return $injector;
     }
 
-    private function getInjectedClassName(ReflectionParameter $reflectionParameter): string
+    private static function getInjectedClassName(ReflectionParameter $reflectionParameter): string
     {
         return $reflectionParameter->getType()->getName(); // @phpstan-ignore-line
     }
