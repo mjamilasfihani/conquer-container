@@ -77,7 +77,7 @@ class Home extends BaseController
 }
 ```
 
-If you have `AnotherExampleLibrary.php` and it need `ExampleLibrary` class the constructor,
+If you have `AnotherExampleLibrary.php` and it need `ExampleLibrary` class in the constructor,
 
 feel free to add it. Because it has been supported in since v2.0.0
 
