@@ -1,5 +1,5 @@
 {
-    "name": "mjamilasfihani/codeigniter4-container",
+    "name": "mjamilasfihani/conquer-container",
     "description": "Containerized Dependency Injection for CodeIgniter 4 Controller.",
     "type": "library",
     "keywords": [
@@ -16,7 +16,7 @@
             "role": "Developer"
         }
     ],
-    "homepage": "https://github.com/mjamilasfihani/codeigniter4-container",
+    "homepage": "https://github.com/mjamilasfihani/conquer-container",
     "require": {
         "php": "^7.4 || ^8.0"
     },
