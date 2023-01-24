@@ -1,10 +1,10 @@
 # CodeIgniter 4 Container
 Containerized Dependency Injection for CodeIgniter 4 Controller.
 
-[![](https://github.com/mjamilasfihani/codeigniter4-container/workflows/PHPUnit/badge.svg)](https://github.com/mjamilasfihani/codeigniter4-container/actions/workflows/phpunit.yml)
-[![](https://github.com/mjamilasfihani/codeigniter4-container/workflows/PHPStan/badge.svg)](https://github.com/mjamilasfihani/codeigniter4-container/actions/workflows/phpstan.yml)
-[![](https://github.com/mjamilasfihani/codeigniter4-container/workflows/Deptrac/badge.svg)](https://github.com/mjamilasfihani/codeigniter4-container/actions/workflows/deptrac.yml)
-[![Coverage Status](https://coveralls.io/repos/github/mjamilasfihani/codeigniter4-container/badge.svg?branch=develop)](https://coveralls.io/github/mjamilasfihani/codeigniter4-container?branch=develop)
+[![](https://github.com/mjamilasfihani/conquer-container/workflows/PHPUnit/badge.svg)](https://github.com/mjamilasfihani/conquer-container/actions/workflows/phpunit.yml)
+[![](https://github.com/mjamilasfihani/conquer-container/workflows/PHPStan/badge.svg)](https://github.com/mjamilasfihani/conquer-container/actions/workflows/phpstan.yml)
+[![](https://github.com/mjamilasfihani/conquer-container/workflows/Deptrac/badge.svg)](https://github.com/mjamilasfihani/conquer-container/actions/workflows/deptrac.yml)
+[![Coverage Status](https://coveralls.io/repos/github/mjamilasfihani/conquer-container/badge.svg?branch=develop)](https://coveralls.io/github/mjamilasfihani/conquer-container?branch=develop)
 
 ## Prerequisites
 Usage of Conquer\Container requires the following:
