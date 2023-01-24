@@ -28,12 +28,11 @@ Let's say you have `app/Libraries/ExampleLibrary.php` file, and you want to load
 in your controller without initializing it manually. Than this library is yours.
 
 Can I imagine your controller? Thank you :
-```php
-<?php
 
+```php
 namespace App\Controllers;
 
-use App\Controller\BaseController;
+use App\Controllers\BaseController;
 use App\Libraries\ExampleLibrary;
 
 class Home extends BaseController
@@ -74,6 +73,42 @@ class Home extends BaseController
         $this->exampleLibrary;
 
         return view('welcome_message');
+    }
+}
+
+```
+
+If your `ExampleLibrary.php` need another class too in the constructor, feel free to
+
+add it. Because it has been supported in since v2.0.0
+
+Here is what I mean :
+
+```php
+namespace App\Libraries;
+
+use App\Libraries\ExampleLibrary;
+
+class AnotherExampleLibrary
+{
+    protected ExampleLibrary $exampleLibrary;
+
+    /**
+     * Constructor
+     *
+     * @param \App\Libraries\ExampleLibrary $exampleLibrary
+     */
+    public function __construct(ExampleLibrary $exampleLibrary)
+    {
+        $this->exampleLibrary = $exampleLibrary;
+    }
+
+    public function anotherExampleMethod()
+    {
+        // you have a power from your parent class
+        $exampleLibrary = $this->exampleLibrary;
+
+        ...
     }
 }
 
