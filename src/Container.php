@@ -3,73 +3,54 @@
 namespace Conquer\Container;
 
 use CodeIgniter\Controller;
-use Conquer\Container\Traits\WithReflectionClass;
-use Conquer\Container\Traits\WithReflectionConstructor;
-use ReflectionMethod;
-use ReflectionParameter;
+use Conquer\Container\Libraries\BaseContainer;
+use Conquer\Container\Libraries\ContainerInterface;
 
-final class Container
+final class Container extends BaseContainer implements ContainerInterface
 {
-    use WithReflectionClass;
-    use WithReflectionConstructor;
-
-    private string $class;
-
+    /**
+     * Constructor
+     */
     private function __construct(string $class)
     {
-        $this->class = $class;
+        $this->setClassName($class);
     }
 
-    public static function withClass(string $name): self
+    /**
+     * With class
+     */
+    public static function withClass(string $name): Container
     {
         return new self($name);
     }
 
+    /**
+     * Initialize
+     *
+     * @return $this
+     */
     public function initialize()
     {
-        $this->setReflectionClass($this->class);
+        $class = $this->getClassName();
 
-        $reflectionClass = $this->getReflectionClass();
+        $this->setReflectionClass($class);
 
-        $this->setReflectionConstructor($reflectionClass);
+        $reflector = $this->getReflectionClass();
+
+        $this->setReflectionConstructor($reflector);
 
         return $this;
     }
 
+    /**
+     * Build
+     */
     public function build(): Controller
     {
-        $class = $this->getClass();
+        $class = $this->getClassName();
 
         $constructor = $this->getReflectionConstructor();
 
-        return ($constructor !== null) ? new $class(...self::getInjectedClass($constructor, false)) : new $class();
-    }
-
-    private static function getInjectedClass(ReflectionMethod $constructor, bool $calling_itself = false): array
-    {
-        $injector = [];
-
-        foreach ($constructor->getParameters() as $key => $param) {
-            // initialize the injected class name
-            $class = self::getInjectedClassName($param);
-
-            // re-define the constructor to support child injection
-            $constructor = ($calling_itself === false) ? self::withClass($class)->initialize()->getReflectionConstructor() : null;
-
-            // building up the library
-            $injector[$key] = (null !== $constructor) ? new $class(...self::getInjectedClass($constructor, true)) : new $class();
-        }
-
-        return $injector;
-    }
-
-    private static function getInjectedClassName(ReflectionParameter $reflectionParameter): string
-    {
-        return $reflectionParameter->getType()->getName(); // @phpstan-ignore-line
-    }
-
-    private function getClass(): string
-    {
-        return $this->class;
+        return ($constructor !== null) ? new $class(...$this->getInjectedClass($constructor, false)) : new $class();
     }
 }

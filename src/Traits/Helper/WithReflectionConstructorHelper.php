@@ -6,7 +6,7 @@ use ReflectionMethod;
 
 trait WithReflectionConstructorHelper
 {
-    public function getReflectionConstructor(): ?ReflectionMethod
+    protected function getReflectionConstructor(): ?ReflectionMethod
     {
         return $this->reflectionConstructor;
     }
