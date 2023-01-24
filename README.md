@@ -17,7 +17,7 @@ Usage of Conquer\Container requires the following:
 Use the package manager [composer](https://getcomposer.org/) to install.
 
 ```bash
-composer require mjamilasfihani/codeigniter4-container
+composer require mjamilasfihani/conquer-container
 ```
 
 ## Usage
