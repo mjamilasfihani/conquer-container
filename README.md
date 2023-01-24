@@ -77,9 +77,9 @@ class Home extends BaseController
 }
 ```
 
-If your `ExampleLibrary.php` need another class too in the constructor, feel free to
+If you have `AnotherExampleLibrary.php` and it need `ExampleLibrary` class the constructor,
 
-add it. Because it has been supported in since v2.0.0
+feel free to add it. Because it has been supported in since v2.0.0
 
 Here is what I mean :
 
@@ -112,7 +112,7 @@ class AnotherExampleLibrary
 }
 ```
 
-Now you can call it with no worries from your controller
+Now you can call it with no worries from your controller :
 
 ```php
 public function __construct(AnotherExampleLibrary $anotherExampleLibrary)
