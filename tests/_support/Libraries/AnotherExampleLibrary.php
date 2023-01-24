@@ -1,11 +1,8 @@
 <?php
 
-namespace Tests\Support\Controllers;
+namespace Tests\Support\Libraries;
 
-use App\Controllers\BaseController;
-use Tests\Support\Libraries\ExampleLibrary;
-
-class ExampleController extends BaseController
+class AnotherExampleLibrary
 {
     protected ExampleLibrary $exampleLibrary;
 
@@ -17,7 +14,7 @@ class ExampleController extends BaseController
         $this->exampleLibrary = $exampleLibrary;
     }
 
-    public function index(): int
+    public function anotherExampleReturn(): int
     {
         return $this->exampleLibrary->exampleReturn();
     }
