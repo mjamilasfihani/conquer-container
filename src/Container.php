@@ -51,6 +51,6 @@ final class Container extends BaseContainer implements ContainerInterface
 
         $constructor = $this->getReflectionConstructor();
 
-        return ($constructor !== null) ? new $class(...$this->getInjectedClass($constructor, false)) : new $class();
+        return ($constructor !== null) ? new $class(...$this->asItSelfIsDisabled()->getInjectedClass($constructor)) : new $class();
     }
 }

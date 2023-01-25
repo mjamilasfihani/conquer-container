@@ -8,12 +8,28 @@ use ReflectionParameter;
 
 trait WithInjectedClass
 {
+    private bool $loopItSelf = false;
+
+    protected function asItSelfIsEnabled()
+    {
+        $this->loopItSelf = true;
+
+        return $this;
+    }
+
+    protected function asItSelfIsDisabled()
+    {
+        $this->loopItSelf = false;
+
+        return $this;
+    }
+
     protected function setInjectedClass(ReflectionParameter $reflectionParameter): string
     {
         return $reflectionParameter->getType()->getName(); // @phpstan-ignore-line
     }
 
-    protected function getInjectedClass(ReflectionMethod $constructor, bool $calling_itself = false): array
+    protected function getInjectedClass(ReflectionMethod $constructor): array
     {
         $injector = [];
 
@@ -22,10 +38,10 @@ trait WithInjectedClass
             $class = $this->setInjectedClass($param);
 
             // re-define the constructor to support child injection
-            $constructor = ($calling_itself === false) ? Container::withClass($class)->initialize()->getReflectionConstructor() : null;
+            $constructor = ($this->loopItSelf === false) ? Container::withClass($class)->initialize()->getReflectionConstructor() : null;
 
             // building up the library
-            $injector[$key] = (null !== $constructor) ? new $class(...$this->getInjectedClass($constructor, true)) : new $class();
+            $injector[$key] = (null !== $constructor) ? new $class(...$this->asItSelfIsEnabled()->getInjectedClass($constructor)) : new $class();
         }
 
         return $injector;
